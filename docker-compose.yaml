@@ -1,0 +1,6 @@
+services:
+  bot:
+    platform: linux/amd64
+    build:
+      dockerfile: Dockerfile
+    restart: always

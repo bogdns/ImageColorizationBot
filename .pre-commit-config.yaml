@@ -48,3 +48,11 @@ repos:
     hooks:
       - id: mypy
         exclude: 'migrations'
+
+  - repo: local
+    hooks:
+      - id: sort-requirements
+        name: Sort requirements.txt
+        entry: bash -c 'sort -o requirements.txt requirements.txt'
+        language: system
+        files: ^requirements\.txt$
