@@ -10,11 +10,8 @@ RUN apt-get install wget -y
 
 COPY . /app
 
-ENV VIRTUAL_ENV=/venv
-ENV PATH="/venv/bin:$PATH"
-
-RUN /venv/bin/pip install --upgrade pip && \
-    /venv/bin/pip install -r requirements.txt
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r requirements.txt
 
 RUN ["chmod", "+x", "./docker-entrypoint.sh"]
 
