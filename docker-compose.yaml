@@ -3,6 +3,6 @@ services:
     platform: linux/arm64
     build:
       dockerfile: Dockerfile
-    restart: no
+    restart: always
     env_file:
       - .env
