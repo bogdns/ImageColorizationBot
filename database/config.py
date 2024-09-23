@@ -9,7 +9,6 @@ class Settings(BaseSettings):
     POSTGRES_PORT_CONTAINER: int
     POSTGRES_PORT_HOST: int
 
-    @property
     def DATABASE_URL_psycopg(self):
         return (f'postgresql+psycopg://{self.POSTGRES_USERNAME}:'
                 f'{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:'

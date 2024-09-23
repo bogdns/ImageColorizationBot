@@ -9,7 +9,6 @@ services:
       - .env
     depends_on:
       - db
-
   db:
     platform: linux/amd64
     image: postgres:15.1-alpine
