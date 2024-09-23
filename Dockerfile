@@ -11,7 +11,7 @@ RUN apt-get install wget -y
 COPY . /app
 
 RUN pip install --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+    pip install -r requirements.txt
 
 RUN ["chmod", "+x", "./docker-entrypoint.sh"]
 
