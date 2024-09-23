@@ -19,3 +19,9 @@ services:
     restart: always
     ports:
       - ${POSTGRES_PORT_HOST}:${POSTGRES_PORT_CONTAINER}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+    driver: local
