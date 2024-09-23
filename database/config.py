@@ -11,11 +11,15 @@ class Settings(BaseSettings):
 
     @property
     def DATABASE_URL_asyncpg(self):
-        return f'postgresql+asyncpg://{self.POSTGRES_USERNAME}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT_CONTAINER}/{self.POSTGRES_DATABASE}'
+        return (f'postgresql+asyncpg://{self.POSTGRES_USERNAME}:'
+                f'{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:'
+                f'{self.POSTGRES_PORT_CONTAINER}/{self.POSTGRES_DATABASE}')
 
     @property
     def DATABASE_URL_psycopg(self):
-        return f'postgresql+psycopg://{self.POSTGRES_USERNAME}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:{self.POSTGRES_PORT_CONTAINER}/{self.POSTGRES_DATABASE}'
+        return (f'postgresql+psycopg://{self.POSTGRES_USERNAME}:'
+                f'{self.POSTGRES_PASSWORD}@{self.POSTGRES_HOST}:'
+                f'{self.POSTGRES_PORT_CONTAINER}/{self.POSTGRES_DATABASE}')
 
     model_config = SettingsConfigDict(env_file='.env', extra='ignore')
 
