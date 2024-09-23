@@ -1,8 +1,21 @@
 services:
   bot:
-    platform: linux/arm64
+    platform: linux/amd64
     build:
+      context: .
       dockerfile: Dockerfile
     restart: always
     env_file:
       - .env
+    depends_on:
+      - db
+  db:
+    platform: linux/amd64
+    image: postgres:15.1-alpine
+    environment:
+      - POSTGRES_USER=${POSTGRES_USERNAME}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DATABASE}
+    restart: always
+    ports:
+      - ${POSTGRES_PORT_HOST}:${POSTGRES_PORT_CONTAINER}
