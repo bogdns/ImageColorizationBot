@@ -11,8 +11,6 @@ logging.basicConfig(level=logging.INFO)
 
 
 async def main():
-    from database.database import engine
-    engine
 
     bot = Bot(token=settings.TOKEN)
     dp = Dispatcher()
