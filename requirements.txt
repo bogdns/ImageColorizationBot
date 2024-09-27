@@ -1,4 +1,4 @@
-SQLAlchemy==2.0.31
+
 aiofiles==23.2.1
 aiogram==3.13.1
 aiohttp==3.9.5
@@ -7,9 +7,13 @@ alembic==1.13.1
 fastapi==0.115.0
 numpy==2.0.0
 pillow==10.4.0
-psycopg-binary==3.2.2
 psycopg==3.2.2
-pyTelegramBotAPI==4.19.2
-pydantic-settings==2.5.2
+psycopg-binary==3.2.2
 pydantic==2.9.2
+pydantic-settings==2.5.2
+pyTelegramBotAPI==4.19.2
+scikit-image
+SQLAlchemy==2.0.31
+torch --index-url https://download.pytorch.org/whl/cpu
+torchvision --index-url https://download.pytorch.org/whl/cpu
 uvicorn==0.30.6
