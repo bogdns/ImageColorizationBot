@@ -1,15 +1,19 @@
 import datetime
+from io import BytesIO
 
-from aiogram import Router
+import numpy as np
+from aiogram import F, Router
 from aiogram.filters import StateFilter
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message
+from aiogram.types import BufferedInputFile, Message
+from PIL import Image as PILImage
 
 from bot.responses.responses import responses
 from bot.states.states import States
 from database.database import session_maker
 from database.dtos import UserDTO
 from database.repositories import UserRepository
+from network.model import colorize_single_image, colorizer
 
 states_router = Router()
 user_repository = UserRepository(session_maker=session_maker)
@@ -40,4 +44,28 @@ async def rename_user(message: Message, state: FSMContext) -> None:
         created_at=user.created_at))
 
     await message.answer(responses['end_rename_user'].replace('<USER>', message.text))
+    await state.clear()
+
+
+@states_router.message(StateFilter(States.colorize_image), F.photo)
+async def handle_docs_photo(message: Message, state: FSMContext) -> None:
+    photo = message.photo[-1]
+
+    # Загружаем файл, получаем объект BytesIO
+    downloaded_file = await message.bot.download(photo.file_id)
+
+    # Открываем изображение напрямую из объекта BytesIO
+    input_image = PILImage.open(downloaded_file).convert('L')
+
+    colorized_image_np = colorize_single_image(input_image, colorizer)
+
+    colorized_image = PILImage.fromarray(np.uint8(colorized_image_np * 255))
+
+    output_buffer = BytesIO()
+    colorized_image.save(output_buffer, format='JPEG')
+    output_buffer.seek(0)
+
+    photo_to_send = BufferedInputFile(output_buffer.getvalue(), filename='colorized_image.jpg')
+
+    await message.answer_photo(photo=photo_to_send, caption='Ваше изображение раскрашено!')
     await state.clear()

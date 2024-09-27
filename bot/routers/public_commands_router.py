@@ -28,3 +28,10 @@ async def rename_user(message: Message, state: FSMContext) -> None:
 
     await message.answer(responses['start_rename_user'])
     await state.set_state(States.start_rename)
+
+
+@public_commands_router.message(Command('colorize'))
+async def colorize_image(message: Message, state: FSMContext) -> None:
+
+    await message.answer(responses['colorize_image'])
+    await state.set_state(States.colorize_image)
